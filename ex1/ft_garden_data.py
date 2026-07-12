@@ -1,21 +1,23 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int ) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
 
-    def show(self)-> None:
+    def show(self) -> None:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
-def main():
+
+
+def main() -> None:
+    nane = Plant("Nane", 15, 1)
+    papatya = Plant("Papatya", 14, 1)
+    gül = Plant("Gül", 14, 1)
+
     print("=== Garden Plant Registry ===")
-    plant1 = Plant("Rose", 25, 30)
-    plant2 = Plant("Sunflower", 80, 45)
-    plant3 = Plant("Cactus", 15, 120 )
+    nane.show()
+    papatya.show()
+    gül.show()
 
-    plant1.show()
-    plant2.show()
-    plant3.show()
 
-if __name__== "__main__":
+if __name__ == "__main__":
     main()
-
