@@ -1,21 +1,12 @@
-#!/usr/bin/env python3
-
 class Plant:
-    def __init__(self, name: str, height: float = 0.0, age: int = 0) -> None:
+    def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
+        self._height = height if height >= 0 else 0.0
+        self._age = age if age >= 0 else 0
 
-        # Başlangıç yüksekliği doğrulaması
-        if height >= 0:
-            self._height = height
-        else:
-            self._height = 0.0
+        if height < 0:
             print(f"{self.name}: Error, height can't be negative")
-
-        # Başlangıç yaşı doğrulaması
-        if age >= 0:
-            self._age = age
-        else:
-            self._age = 0
+        if age < 0:
             print(f"{self.name}: Error, age can't be negative")
 
     def set_height(self, h: float) -> None:
@@ -46,26 +37,20 @@ class Plant:
 
 def main() -> None:
     print("=== Garden Security System ===")
-
-    # 1. Bitki oluşturma (Örnek çıktı test adımları)
     plant = Plant("Rose", 15.0, 10)
-    print(
-        f"Plant created: {plant.name}: "
-        f"{round(plant.get_height(), 1)}cm, {plant.get_age()} days old"
-    )
 
-    # 2. Geçerli güncellemeler
+    print("Plant created: ", end="")
+
+    plant.show()
+
     plant.set_height(25.0)
     plant.set_age(30)
 
-    # 3. Geçersiz (Negatif) güncellemeler - Hata fırlatmalı
     plant.set_height(-5.0)
     plant.set_age(-10)
 
-    print(
-        f"Current state: {plant.name}: "
-        f"{round(plant.get_height(), 1)}cm, {plant.get_age()} days old"
-    )
+    print("Current state: ", end="")
+    plant.show()
 
 
 if __name__ == "__main__":

@@ -19,9 +19,7 @@ class Plant:
 
 def main() -> None:
     print("=== Garden Plant Growth ===")
-
     plant1 = Plant("Rose", 25.0, 30)
-
     plant1.show()
 
     start_height = plant1.height
