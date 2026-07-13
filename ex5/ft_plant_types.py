@@ -1,17 +1,47 @@
+#!/usr/bin/env python3
+
+
 class Plant:
     def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
-        self._height = height
-        self._age = age
+        self._height = height if height >= 0 else 0.0
+        self._age = age if age >= 0 else 0
+
+        if height < 0:
+            print(f"{self.name}: Error, height can't be negative")
+        if age < 0:
+            print(f"{self.name}: Error, age can't be negative")
 
     def grow(self) -> None:
-        self._height += 1.6
+        self._height += 0.8
 
     def age(self) -> None:
         self._age += 1
 
+    def set_height(self, h: float) -> None:
+        if h < 0:
+            print(f"{self.name}: Error, height can't be negative")
+            print("Height update rejected")
+        else:
+            self._height = h
+            print(f"Height updated: {int(h) if h == int(h) else h}cm")
+
+    def set_age(self, a: int) -> None:
+        if a < 0:
+            print(f"{self.name}: Error, age can't be negative")
+            print("Age update rejected")
+        else:
+            self._age = a
+            print(f"Age updated: {a} days")
+
+    def get_height(self) -> float:
+        return self._height
+
+    def get_age(self) -> int:
+        return self._age
+
     def show(self) -> None:
-        print(f"{self.name}: {round(self._height, 1)}cm, {self._age} days old")
+        print(f"{self.name}: {self._height:.1f}cm, {self._age} days old")
 
 
 class Flower(Plant):
@@ -40,15 +70,16 @@ class Tree(Plant):
         self.trunk_diameter = trunk_diameter
 
     def produce_shade(self) -> None:
+        # parent'tan güvenli bir şekilde boy bilgisini aldık
+        h = self.get_height()
         print(
             f"Tree {self.name} now produces a shade of "
-            f"{round(self._height, 1)}cm long and "
-            f"{round(self.trunk_diameter, 1)}cm wide."
+            f"{h:.1f}cm long and {self.trunk_diameter:.1f}cm wide."
         )
 
     def show(self) -> None:
         super().show()
-        print(f"Trunk diameter: {round(self.trunk_diameter, 1)}cm")
+        print(f"Trunk diameter: {self.trunk_diameter:.1f}cm")
 
 
 class Vegetable(Plant):
@@ -57,24 +88,29 @@ class Vegetable(Plant):
     ) -> None:
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
-        self.nutritional_value = 0
+        # Besin değeri ondalıklı başlayıp büyüdükçe artacak
+        self.nutritional_value: float = 0.0
 
     def grow(self) -> None:
         super().grow()
-        self.nutritional_value += 1
+        # Sebze normalden daha hızlı (günde 2.1cm) büyür. 0.8 + 1.3 = 2.1
+        self._height += 1.3
+        self.nutritional_value += 0.5
 
     def age(self) -> None:
         super().age()
-        self.nutritional_value += 1
+        self.nutritional_value += 0.5
 
     def show(self) -> None:
         super().show()
         print(f"Harvest season: {self.harvest_season}")
-        print(f"Nutritional value: {self.nutritional_value}")
+        # Çıktıda tam sayı istendiği için int cast uyguluyoruz
+        print(f"Nutritional value: {int(self.nutritional_value)}")
 
 
 def main() -> None:
     print("=== Garden Plant Types ===")
+
     print("=== Flower")
     rose = Flower("Rose", 15.0, 10, "red")
     rose.show()

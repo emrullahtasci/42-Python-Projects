@@ -1,20 +1,21 @@
+#!/usr/bin/env python3
+
+
 class Plant:
     def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
         self.height = height
-        self.plant_age = age
+        self._age = age  # _age kullanarak çakışmayı önledik ve kapsülleme yaptık
 
     def grow(self) -> None:
         self.height += 0.8
 
     def age(self) -> None:
-        self.plant_age += 1
+        self._age += 1
 
     def show(self) -> None:
-        print(
-            f"{self.name}: {round(self.height, 1)}cm, "
-            f"{self.plant_age} days old"
-        )
+        # :.1f formatı sayesinde her zaman virgülden sonra tek basamak basılır
+        print(f"{self.name}: {self.height:.1f}cm, {self._age} days old")
 
 
 def main() -> None:
@@ -31,7 +32,7 @@ def main() -> None:
         plant1.show()
 
     total_increase = plant1.height - start_height
-    print(f"Growth this week: {round(total_increase, 1)}cm")
+    print(f"Growth this week: {total_increase:.1f}cm")
 
 
 if __name__ == "__main__":

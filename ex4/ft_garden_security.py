@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+
+
 class Plant:
     def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
+        # Negatif değer kontrolü ile varsayılan atamalar
         self._height = height if height >= 0 else 0.0
         self._age = age if age >= 0 else 0
 
@@ -9,13 +13,22 @@ class Plant:
         if age < 0:
             print(f"{self.name}: Error, age can't be negative")
 
+    # Önceki egzersizlerden gelen metotlar korunmalı
+    def grow(self) -> None:
+        self._height += 0.8
+
+    def age(self) -> None:
+        self._age += 1
+
+    # Güvenli Değiştiriciler (Setters)
     def set_height(self, h: float) -> None:
         if h < 0:
             print(f"{self.name}: Error, height can't be negative")
             print("Height update rejected")
         else:
             self._height = h
-            print(f"Height updated: {int(h) if h.is_integer() else h}cm")
+            # is_integer() yerine == int(h) kullanarak çökme riskini önledik
+            print(f"Height updated: {int(h) if h == int(h) else h}cm")
 
     def set_age(self, a: int) -> None:
         if a < 0:
@@ -25,6 +38,7 @@ class Plant:
             self._age = a
             print(f"Age updated: {a} days")
 
+    # Güvenli Erişimciler (Getters)
     def get_height(self) -> float:
         return self._height
 
@@ -40,7 +54,6 @@ def main() -> None:
     plant = Plant("Rose", 15.0, 10)
 
     print("Plant created: ", end="")
-
     plant.show()
 
     plant.set_height(25.0)
