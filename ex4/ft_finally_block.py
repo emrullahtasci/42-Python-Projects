@@ -1,47 +1,41 @@
 #!/usr/bin/env python3
+class PlantError(Exception):
+    def __init__(self, error: str = "Unknown plant error") -> None:
+        super().__init__(error)
 
-class BitkiHatasi(Exception):
-    def __init__(self, mesaj):
-        super().__init__(mesaj)
 
-
-def bitkiyi_sula(bitki_adi: str) -> None:
-    # Arkadaşının kullandığı güvenli ve şık capitalize kontrolü
-    if bitki_adi == bitki_adi.capitalize():
-        print(f"{bitki_adi} sulanıyor: [OK]")
+def water_plant(plant_name: str) -> None:
+    if plant_name == plant_name.capitalize():
+        print(f"Watering {plant_name}: [OK]")
     else:
-        raise BitkiHatasi(f"Sulama için geçersiz bitki adı: '{bitki_adi}'")
+        raise PlantError(f"Invalid plant name to water: '{plant_name}'")
 
 
-def sulama_sistemini_test_et() -> None:
-    print("=== Bahçe Sulama Sistemi ===")
-    
-    # --- 1. Bölüm: Geçerli Bitkiler Testi ---
-    print("Geçerli bitkiler test ediliyor...")
-    print("Sulama sistemi açılıyor")
+def test_watering_system() -> None:
+    print("=== Garden Watering System ===")
 
+    print("Testing valid plants...")
+    print("Opening watering system")
     try:
-        bitkiler = ["Domates", "Marul", "Havuç"]
-        for bitki in bitkiler:
-            bitkiyi_sula(bitki)
+        valid_plants = ["Tomato", "Lettuce", "Carrots"]
+        for plant in valid_plants:
+            water_plant(plant)
     finally:
-        print("Sulama sistemi kapatılıyor\n")
+        print("Closing watering system")
 
-    # --- 2. Bölüm: Geçersiz Bitkiler Testi ---
-    print("Geçersiz bitkiler test ediliyor...")
-    print("Sulama sistemi açılıyor")
-
+    print("Testing invalid plants...")
+    print("Opening watering system")
     try:
-        bitkiyi_sula("Domates")
-        bitkiyi_sula("marul")  # Küçük harf olduğu için hata patlatacak
-    except BitkiHatasi as e:
-        print(f"BitkiHatasi yakalandı: {e}")
-        print(".. testler sonlandırılıyor ve ana programa dönülüyor")
+        water_plant("Tomato")
+        water_plant("lettuce")
+    except PlantError as e:
+        print(f"Caught PlantError: {e}")
+        print(".. ending tests and returning to main")
         return
     finally:
-        print("Sulama sistemi kapatılıyor")
-        print("\nHata olsa bile temizlik her zaman yapılır!")
+        print("Closing watering system")
 
 
 if __name__ == "__main__":
-    sulama_sistemini_test_et()
+    test_watering_system()
+    print("Cleanup always happens, even with errors!")
