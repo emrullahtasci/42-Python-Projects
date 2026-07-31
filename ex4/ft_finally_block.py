@@ -23,7 +23,7 @@ def test_watering_system() -> None:
     finally:
         print("Closing watering system")
 
-    print("Testing invalid plants...")
+    print("\nTesting invalid plants...")
     print("Opening watering system")
     try:
         water_plant("Tomato")
@@ -38,4 +38,4 @@ def test_watering_system() -> None:
 
 if __name__ == "__main__":
     test_watering_system()
-    print("Cleanup always happens, even with errors!")
+    print("\nCleanup always happens, even with errors!")
