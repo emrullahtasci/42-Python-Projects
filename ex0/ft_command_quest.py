@@ -1,5 +1,6 @@
 import sys
 
+
 def main() -> None:
     print("===Command Quest==")
     program_name = sys.argv[0]
@@ -18,6 +19,7 @@ def main() -> None:
             i = i + 1
 
     print(f"Total arguments: {total_arguman}")
+
 
 if __name__ == "__main__":
     main()

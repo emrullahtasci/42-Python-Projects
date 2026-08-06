@@ -24,7 +24,6 @@ def gen_event() -> Generator[tuple[str, str], None, None]:
 def consume_event(
     event_list: list[tuple[str, str]]
 ) -> Generator[tuple[str, str], None, None]:
-    """Listeden rastgele eleman seçip silen ve kalan listeyi gösteren generator."""
     while len(event_list) > 0:
         index = random.randint(0, len(event_list) - 1)
         event = event_list.pop(index)

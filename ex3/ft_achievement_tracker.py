@@ -1,5 +1,6 @@
 import random
 
+
 def create_player() -> set[str]:
     game_pool = [
         "Crafting Genius", "Strategist", "World Savior",
@@ -10,6 +11,7 @@ def create_player() -> set[str]:
     ]
     picked_count = random.randint(4, 9)
     return set(random.sample(game_pool, picked_count))
+
 
 def main() -> None:
     print("=== Achievement Tracker System ===")
@@ -34,10 +36,22 @@ def main() -> None:
     print(f"Common achievements: {all_intersects}")
     print()
 
-    print(f"Only Alice has: {set.difference(p_alice, p_bob, p_charlie, p_dylan)}")
-    print(f"Only Bob has: {set.difference(p_bob, p_alice, p_charlie, p_dylan)}")
-    print(f"Only Charlie has: {set.difference(p_charlie, p_alice, p_bob, p_dylan)}")
-    print(f"Only Dylan has: {set.difference(p_dylan, p_alice, p_bob, p_charlie)}")
+    print(
+        "Only Alice has: "
+        f"{set.difference(p_alice, p_bob, p_charlie, p_dylan)}"
+    )
+    print(
+        "Only Bob has: "
+        f"{set.difference(p_bob, p_alice, p_charlie, p_dylan)}"
+    )
+    print(
+        "Only Charlie has: "
+        f"{set.difference(p_charlie, p_alice, p_bob, p_dylan)}"
+    )
+    print(
+        "Only Dylan has: "
+        f"{set.difference(p_dylan, p_alice, p_bob, p_charlie)}"
+    )
     print()
 
     full_universe = {
@@ -52,6 +66,7 @@ def main() -> None:
     print(f"Bob is missing: {set.difference(full_universe, p_bob)}")
     print(f"Charlie is missing: {set.difference(full_universe, p_charlie)}")
     print(f"Dylan is missing: {set.difference(full_universe, p_dylan)}")
+
 
 if __name__ == "__main__":
     main()
