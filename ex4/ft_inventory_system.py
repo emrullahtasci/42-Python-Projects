@@ -16,29 +16,34 @@ def parse_inventory(args: list[str]) -> dict[str, int]:
             continue
 
         try:
-            value = int(quantity)
+            value: int = int(quantity)
         except ValueError as v:
             print(f"Quantity error for '{item}': {v}")
             continue
+
         inventory.update({item: value})
 
     return inventory
 
 
 def analyze_inventory(inventory: dict[str, int]) -> None:
-    items = list(inventory.keys())
-    total = sum(inventory.values())
+    items: list[str] = list(inventory.keys())
+    total: int = sum(inventory.values())
 
     print(f"Got inventory: {inventory}")
     print(f"Item list: {items}")
     print(f"Total quantity of the {len(items)} items: {total}")
 
-    for item in items:
-        percent = round(inventory[item] * 100 / total, 1)
-        print(f"Item {item} represents {percent}%")
+    if total > 0:
+        for item in items:
+            percent: float = round(inventory[item] * 100 / total, 1)
+            print(f"Item {item} represents {percent}%")
+    else:
+        for item in items:
+            print(f"Item {item} represents 0.0%")
 
-    most = items[0]
-    least = items[0]
+    most: str = items[0]
+    least: str = items[0]
 
     for item in items:
         if inventory[item] > inventory[most]:
@@ -56,7 +61,7 @@ def analyze_inventory(inventory: dict[str, int]) -> None:
 def main() -> None:
     print("=== Inventory System Analysis ===")
 
-    inventory = parse_inventory(sys.argv[1:])
+    inventory: dict[str, int] = parse_inventory(sys.argv[1:])
     if inventory:
         analyze_inventory(inventory)
     else:
